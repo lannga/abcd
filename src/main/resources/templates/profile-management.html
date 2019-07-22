@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <title>ABC</title>
+    <meta charset="utf-8">
+
+
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500">
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/custom.css">
+    <link rel="stylesheet" href="../css/easy-autocomplete.css">
+
+    <style>
+        .overline {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            display: -moz-box;
+            display: box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            -moz-line-clamp: 3;
+            -line-clamp: 3;
+        }
+    </style>
+
+</head>
+
+<body class ="bg-light">
+
+
+
+        
+
+
+    <header class="site-navbar py-1 " role="banner">
+
+        <div class="container-fluid">
+            <div class="row align-items-center">
+
+                <div class="col-6 col-xl-2">
+                    <h1 class="mb-0"><a href="/home" class="text-black h2 mb-0">Web<strong>Job</strong></a></h1>
+                </div>
+
+                <div class="col-10 col-xl-10">
+                    <nav class="site-navigation text-right" role="navigation">
+
+                        <ul class="site-menu js-clone-nav mr-auto">
+                            <li ><a href="/home">Trang chủ</a></li>
+                            <li ><a class="bg-dark text-white rounded" href="/profile-management">Quản lý hồ sơ</a></li>
+                            <li><a href="/new-post"><span class="rounded bg-primary py-2 px-3 text-white"><span
+                                            class="h5 mr-2">+</span>Đăng bài</span></a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+
+
+
+    <div class="container-fluid row py-3">
+        <div class="col-3 ">
+            <ul class="nav flex-column bg-white rounded shadow nav-menu" >
+
+                <ul class="list-unstyled">                    
+                    <li class="font-weight-bold pt-3 pb-2 bg-primary text-white px-3">Tài khoản</li>
+                    <li class="p-2">
+                        <img class="rounded-circle" src="https://via.placeholder.com/150" alt="avata" width = 50>
+                        <span>Tên</span>
+                    </li>
+                </ul>
+
+                <li class="nav-item bg-dark posts">
+                    <a class="nav-link" href="/profile-management/posts">Bài đăng</a>
+                </li>
+
+                <li class="nav-item border-bottom border-top your-posts">
+                    <a class="nav-link text-black" href="/profile-management/your-posts">Xem bài đã đăng</a>
+                </li>
+                <li class="nav-item border-bottom your-applications">
+                    <a class="nav-link text-black" href="/profile-management/your-applications">Xem bài đã ứng tuyển</a>
+                </li>
+            </ul>
+        </div><!-- nav -->
+
+        <div class="tab-pane col-9" role="tabpanel">
+            <form action="profile-management/filter" method="post">
+                <div class="row">
+                    <div class="col-md-6 col-lg-3 mb-3 mb-lg-0">
+                        <input name="title" type="text" class="form-control" placeholder="Nhập tên công việc">
+                    </div><!-- Tìm tiêu đề -->
+                    <div class="col-md-6 col-lg-3 mb-3 mb-lg-0">
+                        <div class="select-wrap">
+                            <span class="icon-keyboard_arrow_down arrow-down"></span>
+                            <select name="jobName" id="jobName" class="form-control">
+                                <option value="">Tất cả các ngành</option>
+                                <option value="Kiến trúc">Kiến trúc</option>
+                                <option value="Ngân hàng">Ngân hàng</option>
+                                <option value="Biên dịch">Biên dịch</option>
+                            </select>
+                        </div>
+                    </div><!-- ngành-->
+                    <div class="col-md-6 col-lg-3 mb-3 mb-lg-0">
+                        <div class="select-wrap">
+                            <span class="icon-keyboard_arrow_down arrow-down"></span>
+                            <select name="location" id="" class="form-control">
+                                <option value="">Mọi nơi</option>
+                                <option value="fulltime">Hà Nội</option>
+                                <option value="fulltime">Hồ Chí Minh</option>
+                                <option value="freelance">Đà Nẵng</option>
+                            </select>
+                        </div>
+                    </div><!-- địa điểm -->
+                    <div class="col-md-6 col-lg-3 mb-3 mb-lg-0">
+                        <input type="submit" class="btn btn-primary btn-block" value="Tìm kiếm">
+                    </div><!-- nút tìm kiếm -->
+                </div>
+            </form>
+            <!-- end Bộ lọc -->
+
+            <div class="w-100 section" id ="posts">
+            
+                <div class="row justify-content-start text-left mt-3 mb-1">
+                    <div class="col-md-9" data-aos="fade">
+                        <h4 class="font-weight-bold text-black">Gần đây</h4>
+                    </div>
+                </div>
+            
+                <div class="row" data-aos="fade">
+                    <div class="col-md-12" th:each="data : ${all}">
+                
+                        <div class="job-post-item bg-white p-4 d-block d-md-flex align-items-center align-items-md-start flex-column">
+                            <div class="mb-4 mb-md-0">
+                                <div class="job-post-item-header d-flex align-items-center">
+                                    <h2 class="mr-3 text-black h4" th:utext="${data.title}" th:attr="title=${data.title}">Title</h2>
+
+                                    <div class="badge-wrap">
+                                        <span class="bg-primary text-white badge py-2 px-4" th:utext="${data.type}">Type</span>
+                                    </div>
+                                </div>
+                                <div class="job-post-item-body d-block d-md-flex">
+                                    <div class="mr-3"><span class="fl-bigmug-line-portfolio23"></span> <a
+                                            th:utext="${data.company}">Company</a></div>
+                                </div>
+                            </div>
+                            <div class="mb-4 mb-md-0">
+                                <strong>Mô tả:</strong>
+                                <p class="overline" th:utext="${data.description}" th:attr="title=${data.description}">description</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-5">
+                    <div class="col-md-12 text-center">
+                        <div class="site-block-27">
+                            <ul class="page">
+                                pagination
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- các bài đăng -->
+            <!-- your-posts -->
+            <div class="w-100 section d-none" id="your-posts">
+                <div class="">
+                    <h5 class="font-weight-bold">Chưa được phê duyệt</h5>
+                    <div class="col-md-12 p-0" th:each="data : ${dataList}">
+                        <div class="job-post-item px-4 py-2">
+                            <a th:href="@{${data.url}}">
+                                <h2 class="mr-3 text-black h4" th:utext="${data.title}" th:attr="title=${data.title}">Title</h2>
+                            </a>
+                            <div class="job-post-item-body d-block d-md-flex">
+                                <div class="mr-3"><span class="fl-bigmug-line-portfolio23"></span> <a th:utext="${data.company}">Company</a></div>
+                            </div>
+                            <div class="job-post-item-body d-block d-md-flex">
+                                <div class="mr-3"><span>Số người ứng tuyển:</span><span>Số người</span></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="">
+                    <h5 class="font-weight-bold">Đã phê duyệt</h5>
+                    <div class="col-md-12 p-0" th:each="data : ${dataList}">
+                        <div class="job-post-item px-4 py-2">
+                            <a th:href="@{${data.url}}">
+                                <h2 class="mr-3 text-black h4" th:utext="${data.title}" th:attr="title=${data.title}">Title</h2>
+                            </a>
+                            <div class="job-post-item-body d-block d-md-flex">
+                                <div class="mr-3"><span class="fl-bigmug-line-portfolio23"></span> <a
+                                        th:utext="${data.company}">Company</a></div>
+                            </div>
+                            <div class="job-post-item-body d-block d-md-flex">
+                                <div class="mr-3"><span>Số người ứng tuyển:</span><span>Số người</span></div>
+                            </div>
+                        </div>
+                
+                    </div>
+                </div>
+            </div>
+            <!-- end your-posts -->
+
+            <!-- your-applications -->
+            <div class="w-100 section" id="your-applications">
+            
+                <div class="row justify-content-start text-left mt-3 mb-1">
+                    <div class="col-md-9" data-aos="fade">
+                        <h4 class="font-weight-bold text-black">Đã ứng tuyển</h4>
+                    </div>
+                </div>
+            
+                <div class="row" data-aos="fade">
+                    <div class="col-md-12" th:each="data : ${all}">
+            
+                        <div
+                            class="job-post-item bg-white p-4 d-block d-md-flex align-items-center align-items-md-start flex-column">
+                            <div class="mb-4 mb-md-0">
+                                <div class="job-post-item-header d-flex align-items-center">
+                                    <h2 class="mr-3 text-black h4" th:utext="${data.title}" th:attr="title=${data.title}">Title</h2>
+            
+                                    <div class="badge-wrap">
+                                        <span class="bg-primary text-white badge py-2 px-4" th:utext="${data.type}">Type</span>
+                                    </div>
+                                </div>
+                                <div class="job-post-item-body d-block d-md-flex">
+                                    <div class="mr-3"><span class="fl-bigmug-line-portfolio23"></span> <a
+                                            th:utext="${data.company}">Company</a></div>
+                                </div>
+                            </div>
+                            <div class="mb-4 mb-md-0">
+                                <strong>Mô tả:</strong>
+                                <p class="overline" th:utext="${data.description}" th:attr="title=${data.description}">description
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+            <!-- end your-applications -->
+        </div>
+    </div>
+        
+
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 col-md-4 mb-5 mb-lg-0">
+                    <h3 class="footer-heading mb-4">Ứng viên</h3>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Đăng ký</a></li>
+                        <li><a href="#">Tìm việc</a></li>
+                        <li><a href="#">Các ngành</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-4 mb-5 mb-lg-0">
+                    <h3 class="footer-heading mb-4">Người tuyển dụng</h3>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Tìm ứng viên</a></li>
+                        <li><a href="#">Các ngành</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-4">
+                    <h3 class="footer-heading mb-4">Liên lạc</h3>
+                    <ul class="list-unstyled">
+                        <li>
+                            <span class="d-block text-white">Địa chỉ</span>
+                            Abc - ABc ABC
+                        </li>
+                        <li>
+                            <span class="d-block text-white">Điện thoại</span>
+                            +0123 456 789
+                        </li>
+                        <li>
+                            <span class="d-block text-white">Email</span>
+                            abc@email.com
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+<script src="../js/jquery/jquery-3.3.1.min.js"></script>
+<script src="../js/interface/popper.min.js"></script>
+<script src="../js/interface/bootstrap.min.js"></script>
+<script src="../js/custom/page-controller.js"></script>
+<script src="../js/custom/profile-mangement-section-controller.js"></script>
+<script th:inline="javascript">
+    try{
+        const section = /*[[${section}]]*/ '';
+        getSection(section);
+        const pageSize = /*[[${dataSize}]]*/ '5';
+        const page = /*[[${page}]]*/ '1';
+        const queryData = /*[[${queryData}]]*/ '1';
+        pageControler(pageSize, page, queryData);
+    
+    }catch(err){}
+</script>
+
+</body>
+</html>

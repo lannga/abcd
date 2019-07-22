@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Jobstart &ndash; Đăng nhập</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="google-signin-client_id" content="397996470835-q1a5seqae64odnej6ble6v2qhnus1r5j.apps.googleusercontent.com">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    
+  </head>
+  <body>
+  
+
+    
+    
+    <header class="site-navbar py-1" role="banner">
+
+      <div class="container">
+        <div class="row align-items-center">
+          
+          <div class="col-6 col-xl-2">
+            <h1 class="mb-0"><a href="home" class="text-black h2 mb-0">Job<strong>start</strong></a></h1>
+          </div>
+
+          <div class="col-10 col-xl-10">
+            <nav class="site-navigation text-right" role="navigation">
+
+              <ul class="site-menu js-clone-nav mr-auto">
+                <li><a href="/home">Trang chủ</a></li>
+                <li><a href="/profile-management">Quản lý hồ sơ</a></li>
+                <li><a href="/new-post"><span class="rounded bg-primary py-2 px-3 text-white"><span class="h5 mr-2">+</span>Đăng
+                      bài</span></a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+      
+    </header>
+
+  <div class="site-section bg-light" style="background-image: url(images/hero_bg_3.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-7 mb-5"  data-aos="fade" >
+
+          <form action="register" method="#" class="p-5 bg-white">
+
+            <h2 class="mb-5 text-black">Đăng ký</h2>
+            <div class="row form-group">
+                
+              <div class="col-md-12">
+                <label class="text-black" for="email">Email</label> 
+                <input type="email" id="email" class="form-control" name="email">
+              </div>
+            </div>
+
+            <div class="row form-group">                
+              <div class="col-md-12">
+                 <label class="text-black" for="password">Mật khẩu</label> 
+                  <input type="password" id="password" class="form-control" name="password" placeholder="Mật khẩu có độ dài > 6 kí tự">
+                </div>
+            </div>
+
+            <div class="row form-group">
+                
+              <div class="col-md-12">
+                 <label class="text-black" for="re-password">Xác nhận mật khẩu</label> 
+                  <input type="password" id="re-password" class="form-control">
+                </div>
+            </div>
+          
+            <div class="row form-group">
+                <div class="col-12">
+                  <p>Bạn đã có tài khoản? <a href="login"> Đăng nhập</a></p>
+                </div>
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+              </div>
+
+              
+
+              <div class="row form-group">
+                <div class="col-md-12">
+                  <input type="submit" id="sign-up" value="Đăng ký" class="btn btn-primary py-2 px-4 text-white">
+                </div>
+              </div>
+
+  
+          </form>
+        </div>
+          
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-6 col-md-4 mb-5 mb-lg-0">
+          <h3 class="footer-heading mb-4">Ứng viên</h3>
+          <ul class="list-unstyled">
+            <li><a href="#">Đăng ký</a></li>
+            <li><a href="#">Tìm việc</a></li>
+            <li><a href="#">Các ngành</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-4 mb-5 mb-lg-0">
+          <h3 class="footer-heading mb-4">Người tuyển dụng</h3>
+          <ul class="list-unstyled">
+            <li><a href="#">Tìm ứng viên</a></li>
+            <li><a href="#">Các ngành</a></li>
+          </ul>
+        </div>
+        <div class="col-12 col-md-4">
+          <h3 class="footer-heading mb-4">Liên lạc</h3>
+          <ul class="list-unstyled">
+            <li>
+              <span class="d-block text-white">Địa chỉ</span>
+              Abc - ABc ABC
+            </li>
+            <li>
+              <span class="d-block text-white">Điện thoại</span>
+              +0123 456 789
+            </li>
+            <li>
+              <span class="d-block text-white">Email</span>
+              abc@email.com
+            </li>
+          </ul>
+  
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+
+  <script src="../js/jquery/jquery-3.3.1.min.js"></script>
+  <script src="../js/interface/popper.min.js"></script>
+  <script src="../interface/js/bootstrap.min.js"></script>
+  <script src="../js/validate/validate.js"></script>
+
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+  <script>
+    const emailList = ["abc@gmail.com", "abcd@gmail.com", "dhjf@gmail.com"]
+
+
+    $("#password").change(pwChecker.bind($("#password")));
+    $("#re-password").change(()=>rpwChecker.bind($("#re-password"))($('#password')));
+    $('#email').change(emailChecker.bind($('#email')));
+
+    $('form').submit((e)=>{
+      pwChecker.bind($("#password"));
+      rpwChecker.bind($("#re-password"))($('#password'));
+      emailChecker.bind($('#email'));
+      if(error) e.preventDefault();      
+    })
+
+
+    function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        // console.log('ID: ' + googleUser.getAuthResponse().id_token); // Do not send to your backend! Use an ID token instead.
+        // console.log('Name: ' + profile.getName());
+        // console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail());
+        // window.location.href = "register?email="+profile.getEmail();
+      }
+
+  </script>
+
+
+    
+  </body>
+</html>

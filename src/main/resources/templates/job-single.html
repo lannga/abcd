@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Abc</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+      .overline{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        display: -moz-box;
+        display: box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        -moz-line-clamp: 1;
+        -line-clamp: 1;
+      }
+    </style>
+    
+  </head>
+  <body>
+  
+
+    
+    
+    <header class="site-navbar py-1" role="banner">
+
+      <div class="container">
+        <div class="row align-items-center">
+          
+          <div class="col-6 col-xl-2">
+            <h1 class="mb-0"><a href="/home" class="text-black h2 mb-0">Job<strong>start</strong></a></h1>
+          </div>
+
+          <div class="col-10 col-xl-10">
+            <nav class="site-navigation text-right" role="navigation">
+
+              <ul class="site-menu js-clone-nav mr-auto">
+                <li><a href="/home">Trang chủ</a></li>
+                <li><a href="/profile-management">Quản lý hồ sơ</a></li>
+                <li><a href="/new-post"><span class="rounded bg-primary py-2 px-3 text-white"><span class="h5 mr-2">+</span> Post a Job</span></a></li>
+              </ul>
+            </nav>
+          </div>
+
+          <div class="col-6 col-xl-2 text-right d-block">
+            
+            <div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3" style="position: relative; top: 3px;"><a href="#" class="site-menu-toggle js-menu-toggle text-black"><span class="icon-menu h3"></span></a></div>
+
+          </div>
+
+        </div>
+      </div>
+      
+    </header>
+
+    <div class="unit-5 overlay" style="background-image: url('../../images/hero_bg_2.jpg');">
+      <div class="container text-center">
+        <h2 class="mb-0" th:utext="${jobName}">JobName</h2>
+        <p class="mb-0 unit-6"><a href="home">Trang chủ</a> <span class="sep">></span> <span>Bài đăng</span></p>
+      </div>
+    </div>
+
+    
+    
+
+    <div class="site-section bg-light">
+      <div class="container">
+        <div class="row"> 
+                
+          <div class="col-md-12 col-lg-8 mb-5">         
+          
+          <div class="p-5 bg-white">
+
+            <div class="mb-4 mb-md-5 mr-5">
+              <div class="job-post-item-header d-flex align-items-center">
+                <h2 class="mr-3 text-black h4" th:utext="${post.title}">title</h2>
+                <div class="badge-wrap">
+                <span class="bg-danger text-white badge py-2 px-4" th:utext="${post.type}">Type</span>
+                </div>
+              </div>
+              <div class="job-post-item-body d-block d-md-flex flex-column">
+                <div class="mr-3"><span><i class="far fa-building"></i></span> <a href="#" th:utext="${post.company}">Company</a></div>
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <span><i class="fas fa-map-marker-alt"></i></span> 
+                      <div class="d-inline" th:each="location : ${post.locations}">
+                        <span th:utext="${location}">location</span>
+                      </div> 
+                  </div>
+                  <small><span>Ngày đăng : </span><span th:utext="${postDate}">postDate</span></small>
+                </div>                
+              </div>
+              <div class="job-post-item-body d-block d-md-flex">  
+                <span>Hạn nộp : </span><span class="text-warning" th:utext="${expiration}">expiration</span>
+            </div>
+          </div>
+
+            <div>
+              <h4>Mô tả</h4>
+              <p th:utext="${post.description}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, tempore veniam qui et aspernatur quaerat? Beatae, sit sequi nostrum dolorem porro temporibus nulla exercitationem consequuntur atque et quasi eligendi obcaecati!</p>
+            </div>
+
+            <div>
+              <h4>Yêu cầu</h4>
+              <p th:utext="${post.requirement}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, tempore veniam
+                qui et aspernatur quaerat? Beatae, sit sequi nostrum dolorem porro temporibus nulla exercitationem consequuntur
+                atque et quasi eligendi obcaecati!</p>
+            </div>
+
+
+            <p class="mt-5"><a th:href="@{'/apply/' + ${data.id}}" class="btn btn-primary  py-2 px-4">Ứng tuyển</a></p>
+            </div>
+          </div>
+
+          <div class="col-lg-4">               
+            <div class="p-4 mb-3 bg-white">
+              <h3 class="h5 p-3 bg-primary text-white" >Công việc liên quan</h3>
+              <div class="d-flex flex-column" th:each="post : ${relatedPosts}">
+                <div class="my-4">
+                  <div class="job-post-item-header d-flex justify-content-between">
+                    <a th:href="@{'/post-number/' + ${post.id}}"><h6 class="mr-3 text-black overline" th:utext="${post.title}" th:attr="title=${post.title}">title</h6></a>
+                    <div style="font-size: 10px">
+                      <span style="width: 40px" class="bg-primary text-white badge py-1 px-1 overline d-inline-block" th:attr="title=${post.type}"  th:utext="${post.type}">type</span>
+                    </div>
+                  </div>
+                  <div class="job-post-item-body d-block d-md-flex" style="font-size: 12px">
+                    <div class="mr-3 overline"><a href="#" th:utext="${post.company}" th:attr="title=${post.company}">company</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+   
+    <footer class="site-footer">
+      <div class="container">
+    
+    
+        <div class="row">
+          <div class="col-6 col-md-4 mb-5 mb-lg-0">
+            <h3 class="footer-heading mb-4">Ứng viên</h3>
+            <ul class="list-unstyled">
+              <li><a href="#">Đăng ký</a></li>
+              <li><a href="#">Tìm việc</a></li>
+              <li><a href="#">Các ngành</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md-4 mb-5 mb-lg-0">
+            <h3 class="footer-heading mb-4">Người tuyển dụng</h3>
+            <ul class="list-unstyled">
+              <li><a href="#">Tìm ứng viên</a></li>
+              <li><a href="#">Các ngành</a></li>
+            </ul>
+          </div>
+          <div class="col-12 col-md-4">
+            <h3 class="footer-heading mb-4">Liên lạc</h3>
+            <ul class="list-unstyled">
+              <li>
+                <span class="d-block text-white">Địa chỉ</span>
+                Abc - ABc ABC
+              </li>
+              <li>
+                <span class="d-block text-white">Điện thoại</span>
+                +0123 456 789
+              </li>
+              <li>
+                <span class="d-block text-white">Email</span>
+                abc@email.com
+              </li>
+            </ul>
+    
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+  <script src="../../js/jquery/jquery-3.3.1.min.js"></script>
+  <script src="../../js/interface/popper.min.js"></script>
+  <script src="../../js/interface/bootstrap.min.js"></script>
+    
+  </body>
+</html>
